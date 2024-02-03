@@ -1,0 +1,52 @@
+from selenium import webdriver # pip install selenium
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager # pip install webdriver-manager
+import time
+
+options = webdriver.ChromeOptions()
+options.add_experimental_option('excludeSwitches', ['enable-logging'])
+# options.add_experimental_option('detach', True)
+
+driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
+
+# URL = "https://www.amazon.com/Hydro-Flask-Around-Tumbler-Trillium/dp/B0C353845H?ref_=Oct_DLandingS_D_1cd6023e_0&th=1"
+URL = "https://www.amazon.com/Hydro-Flask-Mouth-Water-Bottle/dp/B083GB5ZQT?ref_=Oct_DLandingS_D_1cd6023e_1"
+
+driver.get(URL)
+
+# first we get the full review page
+driver.find_element(By.XPATH, "//*[@id=\"reviews-medley-footer\"]/div[2]/a").click()
+
+# driver.implicitly_wait(2)
+
+while(True):
+
+    time.sleep(0.5) # if we move too fast we get a stale element exception
+
+    # gets review container
+    reviewContainer = driver.find_element(By.XPATH, "//*[@id=\"cm_cr-review_list\"]")
+
+    # creates list of all reviews on page
+    reviews = reviewContainer.find_elements(By.CLASS_NAME, "a-section.review.aok-relative")
+
+    for review in reviews:
+        # grab rating, title, and text from review
+
+        # since everything is in a span
+        textReview = review.find_elements(By.TAG_NAME, "span")
+        
+        # the rating scrape is different because the text here isnt actually visible
+        rating = textReview[1].get_attribute("innerText").split(" ")[0]
+        title = textReview[3].text
+        text = textReview[6].text
+
+        print(rating, title, text)
+
+    try:
+        next_page = driver.find_element(By.XPATH, "//*[@id=\"cm_cr-pagination_bar\"]/ul/li[2]/a")
+        next_page.click()
+    except:
+        print("found end of reviews!")
+        break
+
