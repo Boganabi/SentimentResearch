@@ -31,8 +31,8 @@ loaded_model = load_model("sentiment_model.keras")
 -> gave 4
 """
 
-# user_input = "i dont understand bruh"
-user_input = "I was wondering if anyone knows how long it actually takes before you can give them a bath and safely still be protected from fleas etc. I put this on my cat but around our 23 the next day I had to give her a bath. I’m wondering because it says 24 to 48 hours before it’s waterproof if I need to reapply or if we are still protected"
+user_input = "nothing special, but works like it is supposed to"
+# user_input = "I was wondering if anyone knows how long it actually takes before you can give them a bath and safely still be protected from fleas etc. I put this on my cat but around our 23 the next day I had to give her a bath. I’m wondering because it says 24 to 48 hours before it’s waterproof if I need to reapply or if we are still protected"
 
 # preprocess input
 
