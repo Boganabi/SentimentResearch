@@ -16,8 +16,8 @@ options.add_experimental_option('excludeSwitches', ['enable-logging'])
 
 driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
 
-# URL = "https://www.amazon.com/deals?ref_=nav_cs_gb"
-URL = "https://www.amazon.com/SimCity-Limited-windows/dp/B007FTE2VW/ref=cm_cr_arp_d_product_top?ie=UTF8&th=1"
+URL = "https://www.amazon.com/deals?ref_=nav_cs_gb"
+# URL = "https://www.amazon.com/INSE-Cordless-Rechargeable-Powerful-Lightweight/dp/B0BVMGBXQN/"
 
 driver.get(URL)
 
@@ -37,7 +37,8 @@ count = 0
 item_count = 0
 inner_item_count = 0
 
-SINGLE_PROD = True
+SINGLE_PROD = False
+accepted_ratings = ["1.0", "2.0"]
 
 # write data to csv file
 with open(FILENAME, 'a', encoding="utf-8", newline="") as csvfile: # change 'w' to 'a' to append to file instead of overwriting it
@@ -58,6 +59,7 @@ with open(FILENAME, 'a', encoding="utf-8", newline="") as csvfile: # change 'w' 
 
         # first we get the full review page
         driver.find_element(By.XPATH, "//*[@id=\"reviews-medley-footer\"]/div[2]/a").click()
+        # driver.find_element(By.XPATH, "//*[@id=\"reviews-medley-footer\"]/div[2]/a").click()
 
         # we scrape until we get to amazons review limit
         while(True):
@@ -81,7 +83,8 @@ with open(FILENAME, 'a', encoding="utf-8", newline="") as csvfile: # change 'w' 
                     title = textReview[3].text
                     text = textReview[6].text
 
-                    rows.append([rating, title, text])
+                    if rating in accepted_ratings:
+                        rows.append([rating, title, text])
 
                     # print(rating, title, text)
                 except exceptions.StaleElementReferenceException as e:
@@ -89,14 +92,16 @@ with open(FILENAME, 'a', encoding="utf-8", newline="") as csvfile: # change 'w' 
 
             try:
                 next_page = driver.find_element(By.XPATH, "//*[@id=\"cm_cr-pagination_bar\"]/ul/li[2]/a")
+                print(next_page)
                 next_page.click()
             except:
-                # print("found end of reviews!")
+                print("found end of reviews!")
 
                 count += 1
 
                 # writing the data for this product
                 csvwriter.writerows(rows)
+                break
 
     else:
 
@@ -173,7 +178,8 @@ with open(FILENAME, 'a', encoding="utf-8", newline="") as csvfile: # change 'w' 
                             title = textReview[3].text
                             text = textReview[6].text
 
-                            rows.append([rating, title, text])
+                            if rating in accepted_ratings:
+                                rows.append([rating, title, text])
 
                             # print(rating, title, text)
                         except exceptions.StaleElementReferenceException as e:
