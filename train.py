@@ -24,7 +24,8 @@ from nltk.stem.porter import PorterStemmer
 stop_words = set(stopwords.words('english'))
 porter = PorterStemmer()
 
-df = pd.read_csv("cleaned_data.csv")
+# df = pd.read_csv("cleaned_data.csv")
+df = pd.read_csv("balanced_data.csv")
 
 # need to get number of different words for our model
 data = df["Text"].map(word_tokenize).values

@@ -44,7 +44,15 @@ stripped = [w.translate(table).lower() for w in words]
 # remove stop words and do stemming process
 stemmed = [porter.stem(word) for word in stripped if word not in stop_words]
 
-print(stemmed)
+statuses = {
+    0: "Negative",
+    1: "Mostly negative",
+    2: "Neutral",
+    3: "Mostly Positive",
+    4: "Positive"
+}
+
+# print(stemmed)
 
 # do preprocessing that was done with the training
 tokenizer = text.Tokenizer()
@@ -66,3 +74,5 @@ with open("tokenizer.json") as f:
     predicted_class = np.argmax(prediction)
 
     print("Predicted sentiment class:", predicted_class)
+
+    print(statuses[predicted_class])

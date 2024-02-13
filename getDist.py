@@ -2,7 +2,8 @@
 import pandas as pd
 from nltk import word_tokenize # to get number of unique words
 
-df = pd.read_csv("cleaned_data.csv")
+# df = pd.read_csv("cleaned_data.csv")
+df = pd.read_csv("balanced_data.csv")
 
 # need to get number of different words for our model
 data = df["Text"].map(word_tokenize).values
