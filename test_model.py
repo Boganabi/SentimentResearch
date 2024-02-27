@@ -10,13 +10,16 @@ from keras.models import load_model
 from keras.preprocessing.sequence import pad_sequences
 from keras.preprocessing import text, sequence
 
+MODEL_FILE = "sentiment_modelRNN.keras"
+TOKENIZER_FILE = "tokenizerRNN.json"
+
 stop_words = set(stopwords.words('english'))
 porter = PorterStemmer()
 
 df = pd.read_csv("cleaned_data.csv")
 
 # load the model
-loaded_model = load_model("sentiment_model.keras")
+loaded_model = load_model(MODEL_FILE)
 
 """
 1 star: I bought this product because of when we adopted a stray cat, she had fleas. I was confident this product would work and I immediately treated this new cat. I did not work but instead of realizing the issue was with the product, I assume it was my fault in the way that I had applied the product. So I reordered this product but this time I had to get enough for 3 cats since the 2 cats that we already had, had become infested with fleas due to the fact that the initial treatment on this new cat had been 100% INEFECTIVE. So after receiving the second order of this product we treated all 3 cats, while making an extreme effort to apply it completely and thoroughly. The result was 100% Ineffective for each one of the cats. Now we have a major flea problem directly caused by the fact that this product did not do what it is suppose to do. I am very disappointed to say the least with name ""Amazon basic"" which is the 'brand' of this product - which has had a serious negative impact on the daily life of our family which will takes weeks to overcome.
@@ -56,7 +59,7 @@ statuses = {
 
 # do preprocessing that was done with the training
 tokenizer = text.Tokenizer()
-with open("tokenizer.json") as f:
+with open(TOKENIZER_FILE) as f:
     data = json.load(f)
     tokenizer = text.tokenizer_from_json(data)
 
