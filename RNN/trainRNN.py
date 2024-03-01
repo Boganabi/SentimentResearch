@@ -3,20 +3,16 @@
 import pandas as pd
 import numpy as np
 import nltk
-import string
 import json
 import io
 from nltk import word_tokenize # to get number of unique words
 nltk.download("punkt")
-from keras.preprocessing.sequence import pad_sequences # pip install --upgrade --user keras AND pip install tensorflow
-from keras.layers import Input, Dense, LSTM, Embedding
-from keras.layers import Dropout, Activation, Bidirectional, GlobalMaxPool1D
+from keras.layers import Dense, LSTM, Embedding
+from keras.layers import Dropout, GlobalMaxPool1D
 from keras.models import Sequential
-from keras import initializers, regularizers, constraints, optimizers, layers
 from keras.preprocessing import text, sequence
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
-from keras.models import load_model
 
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
@@ -46,8 +42,6 @@ print("vocab size:", len(tokenizer.word_index))
 
 tokenized_texts = tokenizer.texts_to_sequences(df["Text"]) # convert text to integers that are usable by the model
 X = sequence.pad_sequences(tokenized_texts, maxlen=400) # pads integers to be a certain length with 0's or by truncating
-# print("padded input:", X)
-# print("Tokenizer Configuration:", tokenizer.get_config())
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 

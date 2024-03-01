@@ -1,3 +1,4 @@
+
 import string
 import json
 import numpy as np
@@ -7,11 +8,12 @@ nltk.download('stopwords')
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 from keras.models import load_model
-from keras.preprocessing.sequence import pad_sequences
 from keras.preprocessing import text, sequence
 
-MODEL_FILE = "RNN/sentiment_modelRNN.keras"
-TOKENIZER_FILE = "RNN/tokenizerRNN.json"
+# MODEL_FILE = "RNN/sentiment_modelRNN.keras"
+# TOKENIZER_FILE = "RNN/tokenizerRNN.json"
+MODEL_FILE = "CNN/sentiment_modelCNN.keras"
+TOKENIZER_FILE = "CNN/tokenizerCNN.json"
 
 stop_words = set(stopwords.words('english'))
 porter = PorterStemmer()
