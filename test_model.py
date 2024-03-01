@@ -10,8 +10,8 @@ from keras.models import load_model
 from keras.preprocessing.sequence import pad_sequences
 from keras.preprocessing import text, sequence
 
-MODEL_FILE = "sentiment_modelRNN.keras"
-TOKENIZER_FILE = "tokenizerRNN.json"
+MODEL_FILE = "RNN/sentiment_modelRNN.keras"
+TOKENIZER_FILE = "RNN/tokenizerRNN.json"
 
 stop_words = set(stopwords.words('english'))
 porter = PorterStemmer()
