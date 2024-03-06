@@ -60,6 +60,7 @@ model.add(Embedding(len(tokenizer.word_index) + 1, embedding_size, input_length=
 model.add(Conv1D(filters=32, kernel_size=8, activation='relu'))
 model.add(MaxPooling1D(pool_size=2))
 model.add(Flatten())
+model.add(Dense(50, activation='relu'))
 model.add(Dense(10, activation='relu'))
 model.add(Dense(5, activation='sigmoid'))
 
@@ -82,7 +83,7 @@ model.fit(X_train, y_train, epochs=10, batch_size=128, validation_split=0.1)
 y_pred = model.predict(X_test) # get our predictions
 
 acc = accuracy_score(np.argmax(y_test, axis=1), np.argmax(y_pred, axis=1))
-print("Overall accureacy of RNN: {:.3f}".format(acc))
+print("Overall accureacy of CNN: {:.3f}".format(acc))
 
 # save model
 model.save("sentiment_modelCNN.keras")
