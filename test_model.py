@@ -10,10 +10,10 @@ from nltk.stem.porter import PorterStemmer
 from keras.models import load_model
 from keras.preprocessing import text, sequence
 
-# MODEL_FILE = "RNN/sentiment_modelRNN.keras"
-# TOKENIZER_FILE = "RNN/tokenizerRNN.json"
-MODEL_FILE = "CNN/sentiment_modelCNN.keras"
-TOKENIZER_FILE = "CNN/tokenizerCNN.json"
+MODEL_FILE = "RNN/sentiment_modelRNN.keras"
+TOKENIZER_FILE = "RNN/tokenizerRNN.json"
+# MODEL_FILE = "CNN/sentiment_modelCNN.keras"
+# TOKENIZER_FILE = "CNN/tokenizerCNN.json"
 
 stop_words = set(stopwords.words('english'))
 porter = PorterStemmer()
