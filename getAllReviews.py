@@ -16,8 +16,11 @@ options.add_experimental_option('excludeSwitches', ['enable-logging'])
 
 driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
 
-# URL = "https://www.amazon.com/deals?ref_=nav_cs_gb"
-URL = "https://www.amazon.com/gp/bestsellers/automotive/ref=zg_bs_automotive_sm"
+# got test data from https://www.kaggle.com/datasets/sbhatti/financial-sentiment-analysis?resource=download
+
+# URL = "https://www.amazon.com/gp/bestsellers/?ref_=nav_cs_bestsellers"
+URL = "https://www.amazon.com/deals?ref_=nav_cs_gb"
+# URL = "https://www.amazon.com/gp/bestsellers/automotive/ref=zg_bs_automotive_sm"
 # URL = "https://www.amazon.com/INSE-Cordless-Rechargeable-Powerful-Lightweight/dp/B0BVMGBXQN/"
 
 driver.get(URL)
@@ -139,7 +142,7 @@ with open(FILENAME, 'a', encoding="utf-8", newline="") as csvfile: # change 'w' 
 
                 if(not DEAL_PAGE):
                     # get container for all divs
-                    con = driver.find_element(By.XPATH, "//*[@id=\"octopus-dlp-asin-stream\"]")
+                    con = driver.find_element(By.XPATH, "//*[@id=\"grid-main-container\"]/div[3]/div") 
                     prods = con.find_elements(By.TAG_NAME, "li")
                     if(prod_count > len(prods) - 1):
                         # click the next page button
@@ -153,7 +156,7 @@ with open(FILENAME, 'a', encoding="utf-8", newline="") as csvfile: # change 'w' 
                         prods[prod_count].find_element(By.TAG_NAME, "a").click()
                 else:
                     # con = driver.find_element(By.CLASS_NAME, "p13n-gridRow _cDEzb_grid-row_3Cywl")
-                    prods = driver.find_elements(By.ID, "gridItemRoot")
+                    prods = driver.find_elements(By.CLASS_NAME, "a-link-normal DealCard-module__linkOutlineOffset_2fc037WfeGSjbFp1CAhOUn")
                     if(prod_count > len(prods) - 1):
                         # click next page
                         next_prod = driver.find_element(By.CLASS_NAME, "a-last")
@@ -163,7 +166,10 @@ with open(FILENAME, 'a', encoding="utf-8", newline="") as csvfile: # change 'w' 
                         except:
                             break
                     else:
-                        prods[prod_count].find_element(By.TAG_NAME, "a").click()
+                        # prods[prod_count].find_element(By.TAG_NAME, "a").click()
+                        prods[prod_count].click()
+                print(prod_count)
+                print(len(prods))
 
                 # log the url to track which ones are used
                 curr_url = driver.current_url

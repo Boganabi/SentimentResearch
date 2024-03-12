@@ -11,8 +11,8 @@ from nltk.stem.porter import PorterStemmer
 stop_words = set(stopwords.words('english'))
 porter = PorterStemmer()
 
-FILENAME = "reviews.csv"
-fields = ["Rating", "Title", "Text"]
+FILENAME = "testing_models.csv"
+fields = ["Rating", "Text"]
 
 cleanedRows = []
 
@@ -22,9 +22,9 @@ with open(FILENAME, 'r', encoding="utf-8") as csvfile:
 
     for row in reader:
 
-        if len(row) > 0 and row[0] != 'Rating' and row[0] in ["1.0", "2.0", "3.0", "4.0", "5.0"]:
+        if len(row) > 0 and row[0] != 'Sentence':# and row[0] in ["1.0", "2.0", "3.0", "4.0", "5.0"]:
             # split by whitespace
-            words = row[2].split() # defaults to space, use 2 as index to get actual review
+            words = row[0].split() # defaults to space, use 2 as index to get actual review
 
             # remove punctuation and normalize case
             table = str.maketrans('', '', string.punctuation) # create table that removes any punctuation
@@ -33,7 +33,7 @@ with open(FILENAME, 'r', encoding="utf-8") as csvfile:
             # use NLTK to remove stop words and filter stem words (get base form of word)
             stemmed = [porter.stem(word) for word in stripped if word not in stop_words]
             
-            finalizedRow = [row[0]] + [row[1]] + [stemmed]
+            finalizedRow = [row[1]] + [stemmed]
             
             cleanedRows.append(finalizedRow)
 
@@ -41,7 +41,7 @@ with open(FILENAME, 'r', encoding="utf-8") as csvfile:
 
 # print(cleanedRows)
 
-with open("cleaned_data.csv", 'w', encoding="utf-8", newline="") as csvfile: # added newline="" due to funky windows stuff causing a new line to be written
+with open("cleaned_data_test.csv", 'w', encoding="utf-8", newline="") as csvfile: # added newline="" due to funky windows stuff causing a new line to be written
     csvwriter = csv.writer(csvfile)
 
     # write title row

@@ -19,7 +19,7 @@ from textblob import TextBlob # pip install textblob
 from keras.models import load_model
 from keras.preprocessing import text, sequence
 
-df = pd.read_csv("./balanced_data.csv")
+df = pd.read_csv("./cleaned_data_test.csv")
 
 ratings = df["Rating"]
 texts = df["Text"]
@@ -76,7 +76,7 @@ def GetFloatClass(num):
     if num < 0: return "Negative"
     if num > 0: return "Positive"
 
-with open("model_evaluations.csv", 'w', encoding="utf-8", newline="") as csvfile: # added newline="" due to funky windows stuff causing a new line to be written
+with open("model_evaluations_test.csv", 'w', encoding="utf-8", newline="") as csvfile: # added newline="" due to funky windows stuff causing a new line to be written
     csvwriter = csv.writer(csvfile)
     fields = ["Real_Rating", 
               "Text", 
@@ -102,7 +102,8 @@ with open("model_evaluations.csv", 'w', encoding="utf-8", newline="") as csvfile
         curr_row = []
 
         # add actual rating and text
-        curr_row.append(numToClass[ratings[index]])
+        # curr_row.append(numToClass[ratings[index]])
+        curr_row.append(ratings[index].capitalize())
         curr_row.append(t)
 
         # get rating for RNN
