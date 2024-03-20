@@ -19,7 +19,7 @@ from textblob import TextBlob # pip install textblob
 from keras.models import load_model
 from keras.preprocessing import text, sequence
 
-df = pd.read_csv("./cleaned_data_test.csv")
+df = pd.read_csv("./cleaned_test_amazon_data.csv")
 
 ratings = df["Rating"]
 texts = df["Text"]

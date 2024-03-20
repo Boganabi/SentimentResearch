@@ -8,6 +8,10 @@ df = pd.read_csv("model_evaluations_test.csv")
 realValues = df["Real_Rating"]
 totalVals = len(realValues)
 
+numPos = len(df[df["Real_Rating"] == "Positive"])
+numNeu = len(df[df["Real_Rating"] == "Neutral"])
+numNeg = len(df[df["Real_Rating"] == "Negative"])
+
 rnnSuccesses = len(df[df["RNN_Class"] == realValues])
 
 cnnSuccesses = len(df[df["CNN_Class"] == realValues])
@@ -32,3 +36,6 @@ print("Number of successful predictions vs percentage of successful percentages:
     TextBlob:", tbSuccesses, 100 * tbSuccesses / totalVals, "%\n")
 
 print("Total values:", totalVals)
+print("Positive points:", numPos)
+print("Neutral points:", numNeu)
+print("Negative points:", numNeg)
