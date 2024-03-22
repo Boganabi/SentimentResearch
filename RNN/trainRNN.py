@@ -5,6 +5,7 @@ import numpy as np
 import nltk
 import json
 import io
+import matplotlib.pyplot as plt
 from nltk import word_tokenize # to get number of unique words
 nltk.download("punkt")
 from keras.layers import Dense, LSTM, Embedding
@@ -12,7 +13,7 @@ from keras.layers import Dropout, GlobalMaxPool1D
 from keras.models import Sequential
 from keras.preprocessing import text, sequence
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay
 
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
@@ -81,6 +82,12 @@ y_pred = model.predict(X_test) # get our predictions
 
 acc = accuracy_score(np.argmax(y_test, axis=1), np.argmax(y_pred, axis=1))
 print("Overall accureacy of RNN: {:.3f}".format(acc))
+
+cm = confusion_matrix(np.argmax(y_test, axis=1), np.argmax(y_pred, axis=1))
+print(cm)
+disp = ConfusionMatrixDisplay(cm)
+disp.plot()
+plt.show()
 
 # save model
 model.save("sentiment_modelRNN.keras")
