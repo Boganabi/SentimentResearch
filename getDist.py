@@ -14,3 +14,7 @@ print("There are {} unique words in the dataset".format(len(total_vocabulary)))
 target = df["Rating"]
 
 print(target.value_counts())
+
+# find average length of review
+res = sum(map(len, data))/float(len(data))
+print(res)

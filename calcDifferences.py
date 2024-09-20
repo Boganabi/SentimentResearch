@@ -2,40 +2,63 @@
 # this will find the differences between each model and the actual rating
 
 import pandas as pd
+from sklearn.metrics import classification_report
 
 df = pd.read_csv("model_evaluations.csv")
 
 realValues = df["Real_Rating"]
-totalVals = len(realValues)
 
-numPos = len(df[df["Real_Rating"] == "Positive"])
-numNeu = len(df[df["Real_Rating"] == "Neutral"])
-numNeg = len(df[df["Real_Rating"] == "Negative"])
+print("RNN classification report: ")
+print(classification_report(realValues, df["RNN_Class"]))
 
-rnnSuccesses = len(df[df["RNN_Class"] == realValues])
+print("CNN classification report: ")
+print(classification_report(realValues, df["CNN_Class"]))
 
-cnnSuccesses = len(df[df["CNN_Class"] == realValues])
+print("LR classification report: ")
+print(classification_report(realValues, df["Logistic_Regression_Class"]))
 
-lrSuccesses = len(df[df["Logistic_Regression_Class"] == realValues])
+print("NB classification report: ")
+print(classification_report(realValues, df["Naive_Bayes_Class"]))
 
-nbSuccesses = len(df[df["Naive_Bayes_Class"] == realValues])
+print("RF classification report: ")
+print(classification_report(realValues, df["Random_Forest_Class"]))
 
-rfSuccesses = len(df[df["Random_Forest_Class"] == realValues])
+print("NLTK classification report: ")
+print(classification_report(realValues, df["NLTK_Class"]))
 
-nltkSuccesses = len(df[df["NLTK_Class"] == realValues])
+print("TextBlob classification report: ")
+print(classification_report(realValues, df["TextBlob_Class"]))
 
-tbSuccesses = len(df[df["TextBlob_Class"] == realValues])
+# totalVals = len(realValues)
 
-print("Number of successful predictions vs percentage of successful percentages:\n\
-    RNN:", rnnSuccesses, 100 * rnnSuccesses / totalVals, "%\n\
-    CNN:", cnnSuccesses, 100 * cnnSuccesses / totalVals, "%\n\
-    Logistic Regression:", lrSuccesses, 100 * lrSuccesses / totalVals, "%\n\
-    Naive Bayes:", nbSuccesses, 100 * nbSuccesses / totalVals, "%\n\
-    Random Forest:", rfSuccesses, 100 * rfSuccesses / totalVals, "%\n\
-    NLTK:", nltkSuccesses, 100 * nltkSuccesses / totalVals, "%\n\
-    TextBlob:", tbSuccesses, 100 * tbSuccesses / totalVals, "%\n")
+# numPos = len(df[df["Real_Rating"] == "Positive"])
+# numNeu = len(df[df["Real_Rating"] == "Neutral"])
+# numNeg = len(df[df["Real_Rating"] == "Negative"])
 
-print("Total values:", totalVals)
-print("Positive points:", numPos)
-print("Neutral points:", numNeu)
-print("Negative points:", numNeg)
+# rnnSuccesses = len(df[df["RNN_Class"] == realValues])
+
+# cnnSuccesses = len(df[df["CNN_Class"] == realValues])
+
+# lrSuccesses = len(df[df["Logistic_Regression_Class"] == realValues])
+
+# nbSuccesses = len(df[df["Naive_Bayes_Class"] == realValues])
+
+# rfSuccesses = len(df[df["Random_Forest_Class"] == realValues])
+
+# nltkSuccesses = len(df[df["NLTK_Class"] == realValues])
+
+# tbSuccesses = len(df[df["TextBlob_Class"] == realValues])
+
+# print("Number of successful predictions vs percentage of successful percentages:\n\
+#     RNN:", rnnSuccesses, 100 * rnnSuccesses / totalVals, "%\n\
+#     CNN:", cnnSuccesses, 100 * cnnSuccesses / totalVals, "%\n\
+#     Logistic Regression:", lrSuccesses, 100 * lrSuccesses / totalVals, "%\n\
+#     Naive Bayes:", nbSuccesses, 100 * nbSuccesses / totalVals, "%\n\
+#     Random Forest:", rfSuccesses, 100 * rfSuccesses / totalVals, "%\n\
+#     NLTK:", nltkSuccesses, 100 * nltkSuccesses / totalVals, "%\n\
+#     TextBlob:", tbSuccesses, 100 * tbSuccesses / totalVals, "%\n")
+
+# print("Total values:", totalVals)
+# print("Positive points:", numPos)
+# print("Neutral points:", numNeu)
+# print("Negative points:", numNeg)
