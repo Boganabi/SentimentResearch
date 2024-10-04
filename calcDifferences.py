@@ -1,4 +1,3 @@
-
 # this will find the differences between each model and the actual rating
 
 import pandas as pd
