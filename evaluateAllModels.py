@@ -8,6 +8,7 @@ import joblib
 import json
 import string
 import numpy as np
+import re
 
 import nltk # pip install --user -U nltk [used for removing stop words and filtering stem words]
 nltk.download('stopwords')
@@ -76,7 +77,7 @@ def GetFloatClass(num):
     if num < 0: return "Negative"
     if num > 0: return "Positive"
 
-with open("model_evaluations.csv", 'w', encoding="utf-8", newline="") as csvfile: # added newline="" due to funky windows stuff causing a new line to be written
+with open("model_evals_test2.csv", 'w', encoding="utf-8", newline="") as csvfile: # added newline="" due to funky windows stuff causing a new line to be written
     csvwriter = csv.writer(csvfile)
     fields = ["Real_Rating", 
               "Raw_star_rating",
@@ -101,6 +102,7 @@ with open("model_evaluations.csv", 'w', encoding="utf-8", newline="") as csvfile
 
     for index, t in texts.items():
         curr_row = []
+        t = re.sub("[,'\\[\\]]", "", t)
 
         # add actual rating and text
         curr_row.append(numToClass[ratings[index]])

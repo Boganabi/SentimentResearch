@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
 # load dataset
-df = pd.read_csv("./model_evaluations.csv")
+df = pd.read_csv("./model_evals_test2.csv")
 
 ratings = df["Real_Rating"]
 rnn = df["RNN_Class"]
